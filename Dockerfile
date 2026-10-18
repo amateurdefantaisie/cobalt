@@ -23,6 +23,7 @@ COPY --from=build --chown=node:node /prod/api /app
 # include .git, so initialize a minimal repository in the final image.
 RUN apk add --no-cache git \
     && git init /app \
+    && git -c user.name="Render Build" -c user.email="render-build@localhost" commit --allow-empty -m "Initialize runtime metadata" \
     && chown -R node:node /app/.git
 
 USER node
