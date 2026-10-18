@@ -19,6 +19,12 @@ WORKDIR /app
 
 COPY --from=build --chown=node:node /prod/api /app
 
+# The runtime performs a Git-root lookup. Render's Docker build context does not
+# include .git, so initialize a minimal repository in the final image.
+RUN apk add --no-cache git \
+    && git init /app \
+    && chown -R node:node /app/.git
+
 USER node
 
 EXPOSE 9000
