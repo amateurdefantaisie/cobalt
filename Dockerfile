@@ -24,6 +24,7 @@ COPY --from=build --chown=node:node /prod/api /app
 RUN apk add --no-cache git \
     && git init /app \
     && git -c user.name="Render Build" -c user.email="render-build@localhost" commit --allow-empty -m "Initialize runtime metadata" \
+    && git remote add origin https://github.com/imputnet/cobalt.git \
     && chown -R node:node /app/.git
 
 USER node
