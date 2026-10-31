@@ -27,7 +27,9 @@ RUN apk add --no-cache git \
     && git remote add origin https://github.com/imputnet/cobalt.git \
     && chown -R node:node /app/.git
 
+COPY --chmod=755 entrypoint.sh /entrypoint.sh
+
 USER node
 
 EXPOSE 9000
-CMD [ "node", "src/cobalt" ]
+CMD ["/entrypoint.sh"]
